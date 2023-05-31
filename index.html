@@ -42,7 +42,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white">
+                            <a href="#" class="nav-link text-white" id="dashboard-link">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#speedometer2" />
                                 </svg>
@@ -105,7 +105,7 @@
                 </button>
             </div>
         </div>
-        
+
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
@@ -284,6 +284,11 @@
     <script>
         document.getElementById("productos-link").addEventListener("click", function () {
             window.location.href = "productos.html";
+        });
+    </script>
+       <script>
+        document.getElementById("dashboard-link").addEventListener("click", function () {
+            window.location.href = "dashboard.html";
         });
     </script>
 
