@@ -1,3 +1,4 @@
+
 var inventario = [
     {
         "clave": "001",
@@ -10,20 +11,20 @@ var inventario = [
     },
     {
         "clave": "002",
-        "producto": "Pantalón",
-        "categoria": "Ropa",
+        "producto": "Cereal Kellogs",
+        "categoria": "Cereal",
         "existencia": 20,
         "precio": 39.99,
-        "foto": "pantalon.jpg",
+        "foto": "cereales.jpg",
         "nivel_reorden": 30
     },
     {
         "clave": "003",
-        "producto": "Zapatos",
-        "categoria": "Calzado",
+        "producto": "Atún",
+        "categoria": "Enlatados",
         "existencia": 8,
         "precio": 79.99,
-        "foto": "zapatos.jpg",
+        "foto": "enlatados.jpg",
         "nivel_reorden": 10
     }
 ];
