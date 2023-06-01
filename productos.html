@@ -8,8 +8,7 @@
     <meta name="generator" content="Hugo 0.111.3">
     <title>Northwind </title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
@@ -78,42 +77,54 @@
         </div>
     </header>
 
-    <div class="container table-responsive espacio-superior">
-        <table id="tabla" class="w-100 table table-stripped table-bordered">
-            <thead class="bg-primary text-white">
-                <tr>
-                    <th>Clave</th>
-                    <th>Producto</th>
-                    <th>Categoría</th>
-                    <th>Existencia</th>
-                    <th>Nivel de reorden</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Crema alpura</td>
-                    <td>Lacteos</td>
-                    <td>2</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Aceite 1.2.3</td>
-                    <td>Aceite</td>
-                    <td>3</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Queso manchego lala</td>
-                    <td>Queso</td>
-                    <td>1</td>
-                    <td>2</td>
-                </tr>
-            </tbody>
-        </table>
+    <h1>Inventario</h1>
+    <button onclick="mostrarFormulario()">Agregar Producto</button>
+
+    <div id="formulario" style="display: none;">
+        <h2>Formulario de Producto</h2>
+        <label for="clave">Clave:</label>
+        <input type="text" id="clave"><br>
+
+        <label for="producto">Producto:</label>
+        <input type="text" id="producto"><br>
+
+        <label for="categoria">Categoría:</label>
+        <input type="text" id="categoria"><br>
+
+        <label for="existencia">Existencia:</label>
+        <input type="number" id="existencia"><br>
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio"><br>
+
+        <label for="foto">Foto:</label>
+        <input type="text" id="foto"><br>
+
+        <label for="nivel_reorden">Nivel de reorden:</label>
+        <input type="number" id="nivel_reorden"><br>
+
+        <button onclick="agregarProducto()">Agregar</button>
+        <button onclick="cancelarFormulario()">Cancelar</button>
     </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Clave</th>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Existencia</th>
+                <th>Precio</th>
+                <th>Foto</th>
+                <th>Nivel de reorden</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="inventory-list">
+        </tbody>
+    </table>
+
+    <script src="js/script.js"></script>
 
     <script>
         document.getElementById("inicio-link").addEventListener("click", function () {
@@ -130,20 +141,6 @@
             window.location.href = "dashboard.html";
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
-    <script src="script.js"></script>
 
 </body>
 
