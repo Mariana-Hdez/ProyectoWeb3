@@ -1,0 +1,196 @@
+/* PRODUCTO */
+.container-producto {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background: #081b29;
+}
+
+.cards {
+    background: #081b29;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 380px;
+    border-radius: 10px;
+    background: linear-gradient(to left,
+            #00abf0 45%,
+            rgba(0, 0, 0, 0));
+    box-shadow: 0 15px 45px rgba(200, 200, 200, 0.25);
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.card:hover {
+    width: 600px;
+}
+
+.card .imgBox {
+    position: relative;
+    min-width: 300px;
+    width: 300px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.card .imgBox img {
+    width: 80%;
+    object-fit: cov;
+    animation: rotarCard 3s ease infinite;
+}
+
+@keyframes rotarCard {
+    0% {
+        transform: translateY(-1%);
+    }
+
+    50% {
+        transform: translateY(1%);
+    }
+
+    100% {
+        transform: translateY(-1%);
+    }
+}
+
+.card:hover .imgBox {
+    transform: rotate(-10deg);
+}
+
+.card .details {
+    background: #f2f2f2;
+    position: relative;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+.card .details::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-left: 10px solid #00abf0;
+}
+
+small {
+    font-weight: 700;
+}
+
+.buy button {
+    width: 50%;
+    height: 40px;
+
+    background: #00abf0;
+    border: none;
+    font-weight: 600;
+    color: #f2f2f2;
+}
+
+.carro-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-out, visibility 0s linear 0.3s;
+    z-index: 20;
+}
+
+.show {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.carro-modal-contenido {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgb(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+}
+
+.carro-modal-titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.carro-modal-cerrar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s ease-out;
+}
+
+.carro-modal-cerrar:hover {
+    color: #333;
+}
+
+.carro-modal-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.carro-modal-item .item-info {
+    flex-grow: 1;
+}
+
+.carro-modal-item .item-info p {
+    margin: 0;
+}
+
+.carro-modal-item img {
+    width: 70px;
+    height: 85px;
+    margin-right: 10px;
+}
+
+.carro-modal-boton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+    background: #1b45a0;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    background-repeat: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-out;
+}
+
+.carro-modal-boton:hover {
+    background-color: #1b45a0;
+}
