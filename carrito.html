@@ -3,6 +3,7 @@
 
 <head>
     <script src="../assets/js/color-modes.js"></script>
+    <script src="js/carro.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,10 +77,32 @@
             </div>
         </div>
     </header>
-   
+
+    <h1>Carrito</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Clave</th>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Existencia</th>
+                <th>Precio</th>
+                <th>Foto</th>
+                <th>Nivel de reorden</th>
+                <th>Acciones</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="carrin">
+        </tbody>
+    </table>
 
 
-    <script>
+    <script src="js/carro.js"></script>
+  
+
+    <script> 
         document.getElementById("inicio-link").addEventListener("click", function() {
           window.location.href = "index.html";
         });
