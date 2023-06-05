@@ -78,12 +78,12 @@
     </header>
 
     <h1>Inventario</h1>
-    <button onclick="mostrarFormulario()">Agregar Producto</button>
+    <button onclick="mostrarFormulario()" class="btn btn-primary">Agregar Producto</button>
 
     <div id="formulario" style="display: none;">
         <h2>Formulario de Producto</h2>
         <label for="clave">Clave:</label>
-        <input type="text" id="clave"><br>
+        <input type="read" id="clave"><br>
 
         <label for="producto">Producto:</label>
         <input type="text" id="producto"><br>
@@ -103,11 +103,11 @@
         <label for="nivel_reorden">Nivel de reorden:</label>
         <input type="number" id="nivel_reorden"><br>
 
-        <button onclick="agregarProducto()">Agregar</button>
-        <button onclick="cancelarFormulario()">Cancelar</button>
+        <button onclick="agregarProducto()" class="btn btn-success">Agregar</button>
+        <button onclick="cancelarFormulario()" class="btn btn-danger">Cancelar</button>
     </div>
 
-    <table>
+    <table class="display table table-striped table-hover table-bordered border-dark" style="width:100%">
         <thead>
             <tr>
                 <th>Clave</th>

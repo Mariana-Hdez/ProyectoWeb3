@@ -4,10 +4,10 @@ var inventario = [
         "clave": "001",
         "producto": "Refresco",
         "categoria": "Bebidas",
-        "existencia": 10,
+        "existencia": 15,
         "precio": 19.99,
         "foto": "bebidas.jpg",
-        "nivel_reorden": 15
+        "nivel_reorden": 10
     },
     {
         "clave": "002",
@@ -72,23 +72,30 @@ function generarListaInventario() {
         var accionesCell = document.createElement("td");
         var detalleBtn = document.createElement("button");
         detalleBtn.textContent = "Detalle";
+        detalleBtn.className = "btn";
+        detalleBtn.classList.add("btn-outline-info");
         detalleBtn.onclick = mostrarDetalle.bind(null, producto);
         accionesCell.appendChild(detalleBtn);
 
         var editarBtn = document.createElement("button");
         editarBtn.textContent = "Editar";
+        editarBtn.className = "btn";
+        editarBtn.classList.add("btn-outline-primary");
         editarBtn.onclick = editarProducto.bind(null, i);
         accionesCell.appendChild(editarBtn);
 
         var eliminarBtn = document.createElement("button");
         eliminarBtn.textContent = "Eliminar";
+        eliminarBtn.className = "btn";
+        eliminarBtn.classList.add("btn-outline-danger");
         eliminarBtn.onclick = eliminarProducto.bind(null, i);
         accionesCell.appendChild(eliminarBtn);
 
         row.appendChild(accionesCell);
 
-        if (producto.nivel_reorden > producto.existencia) {
-            row.classList.add("low-stock");
+        if(producto.existencia < producto.nivel_reorden){
+            row.classList.add("table-danger");
+            row.classList.add("border-dark");
         }
 
         inventarioTable.appendChild(row);
