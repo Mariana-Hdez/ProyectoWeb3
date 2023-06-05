@@ -1,206 +1,198 @@
+//Variable que mantiene el estado visible del carrito
+var carritoVisible = false;
 
-var inventario = [
-    {
-        "clave": "001",
-        "producto": "Refresco",
-        "categoria": "Bebidas",
-        "existencia": 10,
-        "precio": 19.99,
-        "foto": "bebidas.jpg",
-        "nivel_reorden": 15
-    },
-    {
-        "clave": "002",
-        "producto": "Cereal Kellogs",
-        "categoria": "Cereal",
-        "existencia": 20,
-        "precio": 39.99,
-        "foto": "cereales.jpg",
-        "nivel_reorden": 30
-    },
-    {
-        "clave": "003",
-        "producto": "Atún",
-        "categoria": "Enlatados",
-        "existencia": 8,
-        "precio": 79.99,
-        "foto": "enlatados.jpg",
-        "nivel_reorden": 10
-    }
-];
+//Espermos que todos los elementos de la pàgina cargen para ejecutar el script
+if(document.readyState == 'loading'){
+    document.addEventListener('DOMContentLoaded', ready)
+}else{
+    ready();
+}
 
-function generarListaInventario() {
-    var inventarioTable = document.getElementById("carrin");
-
-    // Limpiar la tabla antes de volver a generarla
-    while (inventarioTable.firstChild) {
-        inventarioTable.removeChild(inventarioTable.firstChild);
+function ready(){
+    
+    //Agregremos funcionalidad a los botones eliminar del carrito
+    var botonesEliminarItem = document.getElementsByClassName('btn-eliminar');
+    for(var i=0;i<botonesEliminarItem.length; i++){
+        var button = botonesEliminarItem[i];
+        button.addEventListener('click',eliminarItemCarrito);
     }
 
-    for (var i = 0; i < inventario.length; i++) {
-        var producto = inventario[i];
-        var row = document.createElement("tr");
+    //Agrego funcionalidad al boton sumar cantidad
+    var botonesSumarCantidad = document.getElementsByClassName('sumar-cantidad');
+    for(var i=0;i<botonesSumarCantidad.length; i++){
+        var button = botonesSumarCantidad[i];
+        button.addEventListener('click',sumarCantidad);
+    }
 
-        var claveCell = document.createElement("td");
-        claveCell.textContent = producto.clave;
-        row.appendChild(claveCell);
+     //Agrego funcionalidad al buton restar cantidad
+    var botonesRestarCantidad = document.getElementsByClassName('restar-cantidad');
+    for(var i=0;i<botonesRestarCantidad.length; i++){
+        var button = botonesRestarCantidad[i];
+        button.addEventListener('click',restarCantidad);
+    }
 
-        var productoCell = document.createElement("td");
-        productoCell.textContent = producto.producto;
-        row.appendChild(productoCell);
+    //Agregamos funcionalidad al boton Agregar al carrito
+    var botonesAgregarAlCarrito = document.getElementsByClassName('boton-item');
+    for(var i=0; i<botonesAgregarAlCarrito.length;i++){
+        var button = botonesAgregarAlCarrito[i];
+        button.addEventListener('click', agregarAlCarritoClicked);
+    }
 
-        var categoriaCell = document.createElement("td");
-        categoriaCell.textContent = producto.categoria;
-        row.appendChild(categoriaCell);
+    //Agregamos funcionalidad al botón comprar
+    document.getElementsByClassName('btn-pagar')[0].addEventListener('click',pagarClicked)
+}
+//Eliminamos todos los elementos del carrito y lo ocultamos
+function pagarClicked(){
+    alert("Gracias por la compra");
+    //Elimino todos los elmentos del carrito
+    var carritoItems = document.getElementsByClassName('carrito-items')[0];
+    while (carritoItems.hasChildNodes()){
+        carritoItems.removeChild(carritoItems.firstChild)
+    }
+    actualizarTotalCarrito();
+    ocultarCarrito();
+}
+//Funciòn que controla el boton clickeado de agregar al carrito
+function agregarAlCarritoClicked(event){
+    var button = event.target;
+    var item = button.parentElement;
+    var titulo = item.getElementsByClassName('titulo-item')[0].innerText;
+    var precio = item.getElementsByClassName('precio-item')[0].innerText;
+    var imagenSrc = item.getElementsByClassName('img-item')[0].src;
+    console.log(imagenSrc);
 
-        var existenciaCell = document.createElement("td");
-        existenciaCell.textContent = producto.existencia;
-        existenciaCell.classList.add('existencias');
-        row.appendChild(existenciaCell);
+    agregarItemAlCarrito(titulo, precio, imagenSrc);
 
-        var precioCell = document.createElement("td");
-        precioCell.textContent = producto.precio;
-        row.appendChild(precioCell);
+    hacerVisibleCarrito();
+}
 
-        var fotoCell = document.createElement("td");
-        fotoCell.innerHTML = '<img src="' + producto.foto + '" alt="' + producto.producto + '" width="50">';
-        row.appendChild(fotoCell);
+//Funcion que hace visible el carrito
+function hacerVisibleCarrito(){
+    carritoVisible = true;
+    var carrito = document.getElementsByClassName('carrito')[0];
+    carrito.style.marginRight = '0';
+    carrito.style.opacity = '1';
 
-        var nivelReordenCell = document.createElement("td");
-        nivelReordenCell.textContent = producto.nivel_reorden;
-        row.appendChild(nivelReordenCell);
+    var items =document.getElementsByClassName('contenedor-items')[0];
+    items.style.width = '60%';
+}
 
-        var accionesCell = document.createElement("td");
-        var carritoBtn = document.createElement("button");
-        carritoBtn.textContent = "Añadir al carrito";
-        carritoBtn.onclick = mostrarDetalle.bind(null, producto);
-        accionesCell.appendChild(carritoBtn);
+//Funciòn que agrega un item al carrito
+function agregarItemAlCarrito(titulo, precio, imagenSrc){
+    var item = document.createElement('div');
+    item.classList.add = ('item');
+    var itemsCarrito = document.getElementsByClassName('carrito-items')[0];
 
-
-        row.appendChild(accionesCell);
-
-        if (producto.nivel_reorden > producto.existencia) {
-            row.classList.add("low-stock");
+    //controlamos que el item que intenta ingresar no se encuentre en el carrito
+    var nombresItemsCarrito = itemsCarrito.getElementsByClassName('carrito-item-titulo');
+    for(var i=0;i < nombresItemsCarrito.length;i++){
+        if(nombresItemsCarrito[i].innerText==titulo){
+            alert("El item ya se encuentra en el carrito");
+            return;
         }
+    }
 
-        inventarioTable.appendChild(row);
+    var itemCarritoContenido = `
+        <div class="carrito-item">
+            <img src="${imagenSrc}" width="80px" alt="">
+            <div class="carrito-item-detalles">
+                <span class="carrito-item-titulo">${titulo}</span>
+                <div class="selector-cantidad">
+                    <i class="fa-solid fa-minus restar-cantidad"></i>
+                    <input type="text" value="1" class="carrito-item-cantidad" disabled>
+                    <i class="fa-solid fa-plus sumar-cantidad"></i>
+                </div>
+                <span class="carrito-item-precio">${precio}</span>
+            </div>
+            <button class="btn-eliminar">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+    `
+    item.innerHTML = itemCarritoContenido;
+    itemsCarrito.append(item);
+
+    //Agregamos la funcionalidad eliminar al nuevo item
+     item.getElementsByClassName('btn-eliminar')[0].addEventListener('click', eliminarItemCarrito);
+
+    //Agregmos al funcionalidad restar cantidad del nuevo item
+    var botonRestarCantidad = item.getElementsByClassName('restar-cantidad')[0];
+    botonRestarCantidad.addEventListener('click',restarCantidad);
+
+    //Agregamos la funcionalidad sumar cantidad del nuevo item
+    var botonSumarCantidad = item.getElementsByClassName('sumar-cantidad')[0];
+    botonSumarCantidad.addEventListener('click',sumarCantidad);
+
+    //Actualizamos total
+    actualizarTotalCarrito();
+}
+//Aumento en uno la cantidad del elemento seleccionado
+function sumarCantidad(event){
+    var buttonClicked = event.target;
+    var selector = buttonClicked.parentElement;
+    console.log(selector.getElementsByClassName('carrito-item-cantidad')[0].value);
+    var cantidadActual = selector.getElementsByClassName('carrito-item-cantidad')[0].value;
+    cantidadActual++;
+    selector.getElementsByClassName('carrito-item-cantidad')[0].value = cantidadActual;
+    actualizarTotalCarrito();
+}
+//Resto en uno la cantidad del elemento seleccionado
+function restarCantidad(event){
+    var buttonClicked = event.target;
+    var selector = buttonClicked.parentElement;
+    console.log(selector.getElementsByClassName('carrito-item-cantidad')[0].value);
+    var cantidadActual = selector.getElementsByClassName('carrito-item-cantidad')[0].value;
+    cantidadActual--;
+    if(cantidadActual>=1){
+        selector.getElementsByClassName('carrito-item-cantidad')[0].value = cantidadActual;
+        actualizarTotalCarrito();
     }
 }
 
-function mostrarFormulario() {
-    var formulario = document.getElementById("formulario");
-    formulario.style.display = "block";
+//Elimino el item seleccionado del carrito
+function eliminarItemCarrito(event){
+    var buttonClicked = event.target;
+    buttonClicked.parentElement.parentElement.remove();
+    //Actualizamos el total del carrito
+    actualizarTotalCarrito();
+
+    //la siguiente funciòn controla si hay elementos en el carrito
+    //Si no hay elimino el carrito
+    ocultarCarrito();
+}
+//Funciòn que controla si hay elementos en el carrito. Si no hay oculto el carrito.
+function ocultarCarrito(){
+    var carritoItems = document.getElementsByClassName('carrito-items')[0];
+    if(carritoItems.childElementCount==0){
+        var carrito = document.getElementsByClassName('carrito')[0];
+        carrito.style.marginRight = '-100%';
+        carrito.style.opacity = '0';
+        carritoVisible = false;
+    
+        var items =document.getElementsByClassName('contenedor-items')[0];
+        items.style.width = '100%';
+    }
+}
+//Actualizamos el total de Carrito
+function actualizarTotalCarrito(){
+    //seleccionamos el contenedor carrito
+    var carritoContenedor = document.getElementsByClassName('carrito')[0];
+    var carritoItems = carritoContenedor.getElementsByClassName('carrito-item');
+    var total = 0;
+    //recorremos cada elemento del carrito para actualizar el total
+    for(var i=0; i< carritoItems.length;i++){
+        var item = carritoItems[i];
+        var precioElemento = item.getElementsByClassName('carrito-item-precio')[0];
+        //quitamos el simobolo peso y el punto de milesimos.
+        var precio = parseFloat(precioElemento.innerText.replace('$','').replace('.',''));
+        var cantidadItem = item.getElementsByClassName('carrito-item-cantidad')[0];
+        console.log(precio);
+        var cantidad = cantidadItem.value;
+        total = total + (precio * cantidad);
+    }
+    total = total/100;
+
+    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$'+total.toLocaleString("es");
+
 }
 
-function cancelarFormulario() {
-    var formulario = document.getElementById("formulario");
-    formulario.style.display = "none";
-    limpiarFormulario();
-}
-
-function limpiarFormulario() {
-    document.getElementById("clave").value = "";
-    document.getElementById("producto").value = "";
-    document.getElementById("categoria").value = "";
-    document.getElementById("existencia").value = "";
-    document.getElementById("precio").value = "";
-    document.getElementById("foto").value = "";
-    document.getElementById("nivel_reorden").value = "";
-}
-
-function agregarProducto() {
-    var clave = document.getElementById("clave").value;
-    var producto = document.getElementById("producto").value;
-    var categoria = document.getElementById("categoria").value;
-    var existencia = parseInt(document.getElementById("existencia").value);
-    var precio = parseFloat(document.getElementById("precio").value);
-    var foto = document.getElementById("foto").value;
-    var nivelReorden = parseInt(document.getElementById("nivel_reorden").value);
-
-    var nuevoProducto = {
-        "clave": clave,
-        "producto": producto,
-        "categoria": categoria,
-        "existencia": existencia,
-        "precio": precio,
-        "foto": foto,
-        "nivel_reorden": nivelReorden
-    };
-
-    inventario.push(nuevoProducto);
-    generarListaInventario();
-    cancelarFormulario();
-}
-
-function editarProducto(indice) {
-    var producto = inventario[indice];
-    document.getElementById("clave").value = producto.clave;
-    document.getElementById("producto").value = producto.producto;
-    document.getElementById("categoria").value = producto.categoria;
-    document.getElementById("existencia").value = producto.existencia;
-    document.getElementById("precio").value = producto.precio;
-    document.getElementById("foto").value = producto.foto;
-    document.getElementById("nivel_reorden").value = producto.nivel_reorden;
-
-    var formulario = document.getElementById("formulario");
-    formulario.style.display = "block";
-
-    var agregarBtn = document.createElement("button");
-    agregarBtn.textContent = "Guardar";
-    agregarBtn.onclick = function() {
-        guardarProducto(indice);
-    };
-
-    var cancelarBtn = document.createElement("button");
-    cancelarBtn.textContent = "Cancelar";
-    cancelarBtn.onclick = cancelarFormulario;
-
-    var accionesCell = document.getElementById("acciones-cell");
-    accionesCell.innerHTML = "";
-    accionesCell.appendChild(agregarBtn);
-    accionesCell.appendChild(cancelarBtn);
-}
-
-function guardarProducto(indice) {
-    var clave = document.getElementById("clave").value;
-    var producto = document.getElementById("producto").value;
-    var categoria = document.getElementById("categoria").value;
-    var existencia = parseInt(document.getElementById("existencia").value);
-    var precio = parseFloat(document.getElementById("precio").value);
-    var foto = document.getElementById("foto").value;
-    var nivelReorden = parseInt(document.getElementById("nivel_reorden").value);
-
-    var productoEditado = {
-        "clave": clave,
-        "producto": producto,
-        "categoria": categoria,
-        "existencia": existencia,
-        "precio": precio,
-        "foto": foto,
-        "nivel_reorden": nivelReorden
-    };
-
-    inventario[indice] = productoEditado;
-    generarListaInventario();
-    cancelarFormulario();
-}
-
-function eliminarProducto(indice) {
-    inventario.splice(indice, 1);
-    generarListaInventario();
-}
-
-function mostrarDetalle(producto) {
-    var detalle = "Producto: " + producto.producto + "\n";
-    detalle += "Existencia: " + producto.existencia + "\n";
-    detalle += "Precio: $" + producto.precio + "\n";
-    detalle += "Categoría: " + producto.categoria + "\n";
-    detalle += "Nivel de reorden: " + producto.nivel_reorden + "\n";
-
-    producto.existencia  = document.getElementById("existencias");  // Obtener el elemento de la celda
-    alert(producto.existencia);
-
-    alert(detalle);
-}
-
-window.addEventListener("load", generarListaInventario);
