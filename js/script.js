@@ -26,6 +26,33 @@ var inventario = [
         "precio": 79.99,
         "foto": "enlatados.jpg",
         "nivel_reorden": 10
+    },
+    {
+        "clave": "004",
+        "producto": "Cheetos",
+        "categoria": "Frituras",
+        "existencia": 16,
+        "precio": 12.99,
+        "foto": "cheetos.jpg",
+        "nivel_reorden": 12
+    },
+    {
+        "clave": "005",
+        "producto": "Aceite Nutrioli",
+        "categoria": "Cocina",
+        "existencia": 20,
+        "precio": 49.99,
+        "foto": "Cocina.jpg",
+        "nivel_reorden": 16
+    },
+    {
+        "clave": "006",
+        "producto": "Lechera",
+        "categoria": "Enlatados",
+        "existencia": 8,
+        "precio": 17.99,
+        "foto": "enlatados.jpg",
+        "nivel_reorden": 8
     }
 ];
 
@@ -96,6 +123,9 @@ function generarListaInventario() {
         if(producto.existencia < producto.nivel_reorden){
             row.classList.add("table-danger");
             row.classList.add("border-dark");
+        }else if(producto.existencia == producto.nivel_reorden){
+            row.classList.add("table-warning");
+            row.classList.add("border-dark");
         }
 
         inventarioTable.appendChild(row);
@@ -105,11 +135,16 @@ function generarListaInventario() {
 function mostrarFormulario() {
     var formulario = document.getElementById("formulario");
     formulario.style.display = "block";
+
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.style.display = "none";
 }
 
 function cancelarFormulario() {
     var formulario = document.getElementById("formulario");
     formulario.style.display = "none";
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.style.display = "block";
     limpiarFormulario();
 }
 
@@ -143,6 +178,8 @@ function agregarProducto() {
     };
 
     inventario.push(nuevoProducto);
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.style.display = "block";
     generarListaInventario();
     cancelarFormulario();
 }

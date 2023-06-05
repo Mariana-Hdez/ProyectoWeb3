@@ -78,51 +78,91 @@
     </header>
 
     <h1>Inventario</h1>
-    <button onclick="mostrarFormulario()" class="btn btn-primary">Agregar Producto</button>
 
-    <div id="formulario" style="display: none;">
+    <div id="formulario" class="container" style="display: none;">
+
         <h2>Formulario de Producto</h2>
-        <label for="clave">Clave:</label>
-        <input type="read" id="clave"><br>
+        <div class="d-flex justify-content-evenly">
+            <div class="row">
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-text">#</span>
+                        <input type="read" class="form-control" id="clave" placeholder="Clave">
+                    </div>
+                </div>
 
-        <label for="producto">Producto:</label>
-        <input type="text" id="producto"><br>
+                <div class="col-4">
+                    <div class="input-group">
+                        <label for="producto" class="input-group-text">Producto</label>
+                        <input type="text" id="producto" class="form-control">
+                    </div>
+                </div>
 
-        <label for="categoria">Categoría:</label>
-        <input type="text" id="categoria"><br>
+                <div class="col-4">
+                    <div class="input-group">
+                        <label for="categoria" class="input-group-text">Categoría</label>
+                        <input type="text" id="categoria" class="form-control">
+                    </div>
+                </div>
 
-        <label for="existencia">Existencia:</label>
-        <input type="number" id="existencia"><br>
+                <div class="col-4">
+                    <div class="input-group">
+                        <label for="existencia" class="input-group-text">Existencia</label>
+                        <input type="number" id="existencia" class="form-control">
+                    </div>
+                </div>
 
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio"><br>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" id="precio" placeholder="Precio">
+                    </div>
+                </div>
 
-        <label for="foto">Foto:</label>
-        <input type="text" id="foto"><br>
+                <div class="col-4">
+                    <div class="input-group">
+                        <label class="input-group-text" for="foto">Foto</label>
+                        <input type="file" class="form-control" id="foto">
+                    </div>
+                </div>
 
-        <label for="nivel_reorden">Nivel de reorden:</label>
-        <input type="number" id="nivel_reorden"><br>
+                <div class="col-4">
+                    <div class="input-group">
+                        <label for="nivel_reorden" class="input-group-text">Nivel de reorden</label>
+                        <input type="number" id="nivel_reorden" class="form-control">
+                    </div>
+                </div>
 
-        <button onclick="agregarProducto()" class="btn btn-success">Agregar</button>
-        <button onclick="cancelarFormulario()" class="btn btn-danger">Cancelar</button>
+                <div class="col-12">
+                    <button onclick="agregarProducto()" class="btn btn-success">Agregar</button>
+                    <button onclick="cancelarFormulario()" class="btn btn-danger">Cancelar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <table class="display table table-striped table-hover table-bordered border-dark" style="width:100%">
-        <thead>
-            <tr>
-                <th>Clave</th>
-                <th>Producto</th>
-                <th>Categoría</th>
-                <th>Existencia</th>
-                <th>Precio</th>
-                <th>Foto</th>
-                <th>Nivel de reorden</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="inventory-list">
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="d-flex justify-content-end ">
+            <button id="btnAgregar" onclick="mostrarFormulario()" class="btn btn-primary">Agregar Producto</button>
+        </div>
+
+        <table class="display table table-striped table-hover table-bordered border-dark" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Clave</th>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Existencia</th>
+                    <th>Precio</th>
+                    <th>Foto</th>
+                    <th>Nivel de reorden</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="inventory-list">
+            </tbody>
+        </table>
+    </div>
 
     <script src="js/script.js"></script>
 
