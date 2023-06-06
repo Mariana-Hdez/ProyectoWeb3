@@ -195,7 +195,7 @@ small {
 }
 
 /* SECCION RESPONSIVE */
-@media screen and (max-width: 850px) {
+@media (min-width: 576px) {
     .container-producto{
       display: flex;
     }
@@ -222,6 +222,7 @@ small {
         overflow: hidden;
         transition: 0.5s;
         margin-top: 1rem;
+        margin-bottom: 1rem;
     }
     .text-body-secondary{
         bottom: 0;
