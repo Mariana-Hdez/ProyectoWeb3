@@ -4,10 +4,10 @@ var inventario = [
         "clave": "001",
         "producto": "Refresco",
         "categoria": "Bebidas",
-        "existencia": 10,
+        "existencia": 15,
         "precio": 19.99,
-        "foto": "bebidas.jpg",
-        "nivel_reorden": 15
+        "foto": "assets/img/bebidas.jpg",
+        "nivel_reorden": 10
     },
     {
         "clave": "002",
@@ -15,7 +15,7 @@ var inventario = [
         "categoria": "Cereal",
         "existencia": 20,
         "precio": 39.99,
-        "foto": "cereales.jpg",
+        "foto": "assets/img/cereales.jpg",
         "nivel_reorden": 30
     },
     {
@@ -24,8 +24,35 @@ var inventario = [
         "categoria": "Enlatados",
         "existencia": 8,
         "precio": 79.99,
-        "foto": "enlatados.jpg",
+        "foto": "assets/img/enlatados.jpg",
         "nivel_reorden": 10
+    },
+    {
+        "clave": "004",
+        "producto": "Cheetos",
+        "categoria": "Frituras",
+        "existencia": 16,
+        "precio": 12.99,
+        "foto": "assets/img/cheetos.jpg",
+        "nivel_reorden": 12
+    },
+    {
+        "clave": "005",
+        "producto": "Aceite Nutrioli",
+        "categoria": "Cocina",
+        "existencia": 20,
+        "precio": 49.99,
+        "foto": "assets/img/nutrioli.png",
+        "nivel_reorden": 16
+    },
+    {
+        "clave": "006",
+        "producto": "Lechera",
+        "categoria": "Enlatados",
+        "existencia": 8,
+        "precio": 17.99,
+        "foto": "assets/img/enlatados.jpg",
+        "nivel_reorden": 8
     }
 ];
 
@@ -72,23 +99,33 @@ function generarListaInventario() {
         var accionesCell = document.createElement("td");
         var detalleBtn = document.createElement("button");
         detalleBtn.textContent = "Detalle";
+        detalleBtn.className = "btn";
+        detalleBtn.classList.add("btn-outline-info");
         detalleBtn.onclick = mostrarDetalle.bind(null, producto);
         accionesCell.appendChild(detalleBtn);
 
         var editarBtn = document.createElement("button");
         editarBtn.textContent = "Editar";
+        editarBtn.className = "btn";
+        editarBtn.classList.add("btn-outline-primary");
         editarBtn.onclick = editarProducto.bind(null, i);
         accionesCell.appendChild(editarBtn);
 
         var eliminarBtn = document.createElement("button");
         eliminarBtn.textContent = "Eliminar";
+        eliminarBtn.className = "btn";
+        eliminarBtn.classList.add("btn-outline-danger");
         eliminarBtn.onclick = eliminarProducto.bind(null, i);
         accionesCell.appendChild(eliminarBtn);
 
         row.appendChild(accionesCell);
 
-        if (producto.nivel_reorden > producto.existencia) {
-            row.classList.add("low-stock");
+        if(producto.existencia < producto.nivel_reorden){
+            row.classList.add("table-danger");
+            row.classList.add("border-dark");
+        }else if(producto.existencia == producto.nivel_reorden){
+            row.classList.add("table-warning");
+            row.classList.add("border-dark");
         }
 
         inventarioTable.appendChild(row);
@@ -98,11 +135,22 @@ function generarListaInventario() {
 function mostrarFormulario() {
     var formulario = document.getElementById("formulario");
     formulario.style.display = "block";
+
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.style.display = "none";
+
+    var btnAgregarForm = document.getElementById("btnAgregarForm");
+    btnAgregarForm.style.display = "block";
+
+    var btnGuardarForm = document.getElementById("btnGuardarForm");
+    btnGuardarForm.style.display = "none";
 }
 
 function cancelarFormulario() {
     var formulario = document.getElementById("formulario");
     formulario.style.display = "none";
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.style.display = "block";
     limpiarFormulario();
 }
 
@@ -136,32 +184,39 @@ function agregarProducto() {
     };
 
     inventario.push(nuevoProducto);
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.style.display = "block";
     generarListaInventario();
     cancelarFormulario();
 }
 
 function editarProducto(indice) {
+    
     var producto = inventario[indice];
-    document.getElementById("clave").value = producto.clave;
-    document.getElementById("producto").value = producto.producto;
-    document.getElementById("categoria").value = producto.categoria;
-    document.getElementById("existencia").value = producto.existencia;
-    document.getElementById("precio").value = producto.precio;
-    document.getElementById("foto").value = producto.foto;
-    document.getElementById("nivel_reorden").value = producto.nivel_reorden;
 
     var formulario = document.getElementById("formulario");
     formulario.style.display = "block";
 
-    var agregarBtn = document.createElement("button");
-    agregarBtn.textContent = "Guardar";
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.style.display = "none";
+
+    var btnAgregarForm = document.getElementById("btnAgregarForm")
+    btnAgregarForm.style.display = "none";
+    
+    var agregarBtn = document.getElementById("btnGuardarForm");
+    agregarBtn.style.display = "block";
     agregarBtn.onclick = function() {
         guardarProducto(indice);
     };
 
-    var cancelarBtn = document.createElement("button");
-    cancelarBtn.textContent = "Cancelar";
-    cancelarBtn.onclick = cancelarFormulario;
+    document.getElementById("clave").value = producto.clave;
+    document.getElementById("producto").value = producto.producto;
+    document.getElementById("categoria").value = producto.categoria;
+    document.getElementById("nivel_reorden").value = producto.nivel_reorden;
+    document.getElementById("existencia").value = producto.existencia;
+    document.getElementById("precio").value = producto.precio;
+    document.getElementById("foto").value = producto.foto;
+
 
     var accionesCell = document.getElementById("acciones-cell");
     accionesCell.innerHTML = "";

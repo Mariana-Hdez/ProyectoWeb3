@@ -1,3 +1,7 @@
+*{
+  font-family: 'Pt Sans Narrow', sans-serif;
+}
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -70,7 +74,8 @@
     z-index: 1500;
   }
 
-  .custom-carousel-inner .carousel-item img {
+  .carousel-item img {
+    width: 100%;
     max-height: 400px; /* Ajusta el valor según tus necesidades */
     object-fit: contain; /* Ajusta el valor según tus necesidades */
   }
@@ -81,10 +86,16 @@
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  background-color: rgb(11, 4, 82); /* Personaliza el color según tus preferencias */
+  background-color: rgba(11, 4, 82, 0.281); /* Personaliza el color según tus preferencias */
 }
 
 .espacio-superior {
   margin-top: 50px;
 }
 
+@media (min-width: 576px) and (max-width: 767px){
+  .cards{
+    display: flex;
+    flex-flow: column;
+  }
+}
