@@ -222,6 +222,7 @@ small {
         overflow: hidden;
         transition: 0.5s;
         margin-top: 1rem;
+        margin-bottom: 1rem;
     }
     .text-body-secondary{
         bottom: 0;
