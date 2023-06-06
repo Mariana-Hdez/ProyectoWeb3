@@ -93,3 +93,9 @@
   margin-top: 50px;
 }
 
+@media (min-width: 576px) and (max-width: 767px){
+  .cards{
+    display: flex;
+    flex-flow: column;
+  }
+}
