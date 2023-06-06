@@ -2,13 +2,11 @@
 <html lang="en" data-bs-theme="auto">
 
 <head>
-    <script src="../assets/js/color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.111.3">
     <title>Northwind </title>
 
-    <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
@@ -87,7 +85,7 @@
                 <div class="col-4">
                     <div class="input-group">
                         <span class="input-group-text">#</span>
-                        <input type="read" class="form-control" id="clave" placeholder="Clave">
+                        <input type="text" readonly class="form-control" id="clave" placeholder="Clave">
                     </div>
                 </div>
 
@@ -134,8 +132,9 @@
                 </div>
 
                 <div class="col-12">
-                    <button onclick="agregarProducto()" class="btn btn-success">Agregar</button>
-                    <button onclick="cancelarFormulario()" class="btn btn-danger">Cancelar</button>
+                    <button id="btnAgregarForm" onclick="agregarProducto()" class="btn btn-success">Agregar</button>
+                    <button id="btnGuardarForm" class="btn btn-success" style="display: none;">Guardar</button>
+                    <button id="btnCancelarForm" onclick="cancelarFormulario()" class="btn btn-danger">Cancelar</button>
                 </div>
             </div>
         </div>

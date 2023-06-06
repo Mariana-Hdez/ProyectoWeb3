@@ -6,7 +6,7 @@ var inventario = [
         "categoria": "Bebidas",
         "existencia": 15,
         "precio": 19.99,
-        "foto": "bebidas.jpg",
+        "foto": "assets/img/bebidas.jpg",
         "nivel_reorden": 10
     },
     {
@@ -15,7 +15,7 @@ var inventario = [
         "categoria": "Cereal",
         "existencia": 20,
         "precio": 39.99,
-        "foto": "cereales.jpg",
+        "foto": "assets/img/cereales.jpg",
         "nivel_reorden": 30
     },
     {
@@ -24,7 +24,7 @@ var inventario = [
         "categoria": "Enlatados",
         "existencia": 8,
         "precio": 79.99,
-        "foto": "enlatados.jpg",
+        "foto": "assets/img/enlatados.jpg",
         "nivel_reorden": 10
     },
     {
@@ -33,7 +33,7 @@ var inventario = [
         "categoria": "Frituras",
         "existencia": 16,
         "precio": 12.99,
-        "foto": "cheetos.jpg",
+        "foto": "assets/img/cheetos.jpg",
         "nivel_reorden": 12
     },
     {
@@ -42,7 +42,7 @@ var inventario = [
         "categoria": "Cocina",
         "existencia": 20,
         "precio": 49.99,
-        "foto": "Cocina.jpg",
+        "foto": "assets/img/nutrioli.png",
         "nivel_reorden": 16
     },
     {
@@ -51,7 +51,7 @@ var inventario = [
         "categoria": "Enlatados",
         "existencia": 8,
         "precio": 17.99,
-        "foto": "enlatados.jpg",
+        "foto": "assets/img/enlatados.jpg",
         "nivel_reorden": 8
     }
 ];
@@ -138,6 +138,12 @@ function mostrarFormulario() {
 
     var btnAgregar = document.getElementById("btnAgregar");
     btnAgregar.style.display = "none";
+
+    var btnAgregarForm = document.getElementById("btnAgregarForm");
+    btnAgregarForm.style.display = "block";
+
+    var btnGuardarForm = document.getElementById("btnGuardarForm");
+    btnGuardarForm.style.display = "none";
 }
 
 function cancelarFormulario() {
@@ -185,27 +191,32 @@ function agregarProducto() {
 }
 
 function editarProducto(indice) {
+    
     var producto = inventario[indice];
-    document.getElementById("clave").value = producto.clave;
-    document.getElementById("producto").value = producto.producto;
-    document.getElementById("categoria").value = producto.categoria;
-    document.getElementById("existencia").value = producto.existencia;
-    document.getElementById("precio").value = producto.precio;
-    document.getElementById("foto").value = producto.foto;
-    document.getElementById("nivel_reorden").value = producto.nivel_reorden;
 
     var formulario = document.getElementById("formulario");
     formulario.style.display = "block";
 
-    var agregarBtn = document.createElement("button");
-    agregarBtn.textContent = "Guardar";
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.style.display = "none";
+
+    var btnAgregarForm = document.getElementById("btnAgregarForm")
+    btnAgregarForm.style.display = "none";
+    
+    var agregarBtn = document.getElementById("btnGuardarForm");
+    agregarBtn.style.display = "block";
     agregarBtn.onclick = function() {
         guardarProducto(indice);
     };
 
-    var cancelarBtn = document.createElement("button");
-    cancelarBtn.textContent = "Cancelar";
-    cancelarBtn.onclick = cancelarFormulario;
+    document.getElementById("clave").value = producto.clave;
+    document.getElementById("producto").value = producto.producto;
+    document.getElementById("categoria").value = producto.categoria;
+    document.getElementById("nivel_reorden").value = producto.nivel_reorden;
+    document.getElementById("existencia").value = producto.existencia;
+    document.getElementById("precio").value = producto.precio;
+    document.getElementById("foto").value = producto.foto;
+
 
     var accionesCell = document.getElementById("acciones-cell");
     accionesCell.innerHTML = "";
