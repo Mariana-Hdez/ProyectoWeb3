@@ -1,4 +1,3 @@
-
 var inventario = [
     {
         "clave": "001",

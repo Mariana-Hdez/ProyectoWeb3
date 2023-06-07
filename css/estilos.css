@@ -71,8 +71,8 @@
   }
 
   .custom-carousel-inner .carousel-item img {
-    max-height: 400px; /* Ajusta el valor según tus necesidades */
-    object-fit: contain; /* Ajusta el valor según tus necesidades */
+    height: 400px; /* Ajusta el valor según tus necesidades */
+    object-fit: cover; /* Ajusta el valor según tus necesidades */
   }
   .carousel-control-prev,
 .carousel-control-next {
@@ -89,7 +89,7 @@
 }
 
 /* SECCION RESPONSIVE */
-@media screen and (max-width: 850px) {
+@media (max-width: 850px) {
   .contenedor {
     display: block;
   }
